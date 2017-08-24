@@ -5,6 +5,19 @@ backend "s3" {
 }
 {% endif -%}
 
+{%- if vault.storage %}
+storage "{{ vault.storage.type }}" {
+  ha_enabled    = "{{ vault.storage.ha_enabled }}"
+  region        = "{{ vault.storage.region }}"
+  {%- if vault.storage.type == "dynamodb" %}
+  table         = "{{ vault.storage.table }}"
+  {% endif -%}
+  {%- if vault.storage.ha_enabled == "true" %}
+  redirect_addr = "{{ vault.storage.redirect_addr }}"
+  {% endif -%}
+}
+{% endif -%}
+
 listener "{{ vault.listen_protocol }}" {
   address = "{{ vault.listen_address }}:{{ vault.listen_port }}"
   tls_disable = {{ vault.tls_disable }}
