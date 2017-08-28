@@ -13,7 +13,8 @@ storage "{{ vault.storage.type }}" {
   table         = "{{ vault.storage.table }}"
   {% endif -%}
   {%- if vault.storage.ha_enabled == "true" %}
-  redirect_addr = "{{ vault.storage.redirect_addr }}"
+    redirect_addr = "{{ vault.storage.redirect_addr }}"
+    cluster_addr = "{{ vault.storage.cluster_addr }}"
   {% endif -%}
 }
 {% endif -%}
