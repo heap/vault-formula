@@ -35,5 +35,11 @@ listener "{{ vault.listen_protocol }}" {
 {% endif %}
 }
 
+{%- if vault.telemetry %}
+telemetry {
+  statsd_address = "{{ vault.telemetry.statsd_address }}"
+}
+{% endif -%}
+
 default_lease_ttl="{{ vault.default_lease_ttl }}"
 max_lease_ttl="{{ vault.max_lease_ttl }}"
